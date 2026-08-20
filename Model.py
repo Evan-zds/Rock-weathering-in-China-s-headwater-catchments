@@ -125,14 +125,3 @@ class KMLP(nn.Module):
         final_outputs = torch.clamp(final_pred, 0, None)
         return final_outputs
 
-
-
-if __name__ == '__main__':
-    df = pd.read_excel(r'/home/zhangdsh9/MyPapers/RockWeathering/data/csv/MyData_Monthly.xlsx')
-    attr_ls= df.loc[:, 'CO2air_as': 'ROsub_ht'].columns.tolist()
-    feature_map = {name: i for i, name in enumerate(attr_ls)}
-
-    model = KMLP(feature_names=feature_map, ndim=16, r_ff=2, dropout=0.1).to(torch.device('cuda:0'))
-    x = torch.randn((2, 18)).to(torch.device('cuda:0'))
-    output = model(x)
-    print(output)
